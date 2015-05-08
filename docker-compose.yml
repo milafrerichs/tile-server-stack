@@ -1,0 +1,14 @@
+app:
+  build: .
+  ports:
+    - 8080:8080
+  links:
+    - db:db
+db:
+  image: kartoza/postgis
+  hostname: postgis
+  volumes:
+    - ./postgres_data:/var/lib/postgresql
+  environment:
+    - USERNAME=docker
+    - PASS=docker
