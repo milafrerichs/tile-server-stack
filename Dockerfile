@@ -11,15 +11,15 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libboost_python.so /usr/lib
 RUN ln -s /usr/lib/x86_64-linux-gnu/libboost_thread.so /usr/lib
 
 # install tilestache, mapnik, and dependencies
-RUN pip install --allow-external PIL --allow-unverified PIL PIL tilestache simplejson werkzeug sympy Blit mapnik2 jinja2
-RUN pip install uwsgi
+RUN pip install --allow-external PIL --allow-unverified PIL PIL tilestache simplejson werkzeug sympy Blit mapnik2 jinja2 uwsgi
+
 RUN mkdir /nepal-tiles
 WORKDIR /nepal-tiles
 
 ADD tilestache.cfg /nepal-tiles/tilestache.cfg
 ADD app.py /nepal-tiles/app.py
 ADD app.ini /nepal-tiles/app.ini
+ADD data /nepal-tiles/data
 
 EXPOSE 8080
 CMD ["uwsgi", "app.ini"]
-
