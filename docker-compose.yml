@@ -4,6 +4,13 @@ app:
   command: gunicorn wsgi:application -b 0.0.0.0:8080 -w 3
   ports:
     - "8080"
+  links:
+    - redis:redis
+
+redis:
+  image: redis
+  ports:
+    - "6379"
 
 haproxy:
   image: tutum/haproxy
