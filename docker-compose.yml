@@ -2,3 +2,10 @@ app:
   build: .
   ports:
     - 80:8080
+  links:
+    - redis:redis
+
+redis:
+  image: redis
+  ports:
+    - "6379"

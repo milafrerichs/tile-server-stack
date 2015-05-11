@@ -12,7 +12,7 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libboost_thread.so /usr/lib
 
 # install tilestache, mapnik, and dependencies
 RUN pip install --allow-external PIL --allow-unverified PIL PIL tilestache simplejson werkzeug sympy Blit mapnik2 jinja2 uwsgi
-
+RUN pip install redis
 RUN mkdir /nepal-tiles
 WORKDIR /nepal-tiles
 
