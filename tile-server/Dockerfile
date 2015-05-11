@@ -16,10 +16,12 @@ RUN pip install redis
 RUN mkdir /nepal-tiles
 WORKDIR /nepal-tiles
 
+RUN pip install gunicorn
 ADD tilestache.cfg /nepal-tiles/tilestache.cfg
-ADD app.py /nepal-tiles/app.py
+ADD wsgi.py /nepal-tiles/wsgi.py
 ADD app.ini /nepal-tiles/app.ini
+ADD gunicorn.py /nepal-tiles/gunicorn.py
 ADD data /nepal-tiles/data
 
 EXPOSE 8080
-CMD ["uwsgi", "app.ini"]
+CMD ["gunicorn", "app.py", '--config=gunicorn.pry']
