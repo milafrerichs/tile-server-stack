@@ -1,6 +1,6 @@
 FROM milafrerichs/docker-tilestache
 
-RUN pip install gunicorn jinja2
+RUN pip install gunicorn jinja2 redis
 
 RUN mkdir /nepal-tiles
 WORKDIR /nepal-tiles
