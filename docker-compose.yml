@@ -1,7 +1,7 @@
 app:
   build: ./tile-server
   restart: always
-  command: gunicorn wsgi:application -b 0.0.0.0:8080 -w 3
+  command: newrelic-admin run-program gunicorn wsgi:application -b 0.0.0.0:8080 -w 3
   ports:
     - "8080"
   links:
