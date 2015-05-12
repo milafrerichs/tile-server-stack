@@ -12,4 +12,4 @@ ADD gunicorn.py /nepal-tiles/gunicorn.py
 ADD data /nepal-tiles/data
 
 EXPOSE 8080
-CMD ["gunicorn", "wsgi.py", "--bind 0.0.0.0:8080"]
+CMD gunicorn wsgi.py --bind 0.0.0.0:8080
