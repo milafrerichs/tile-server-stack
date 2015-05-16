@@ -6,6 +6,13 @@ app:
     - "8080"
   links:
     - redis:redis
+  volumes_from:
+    - data
+
+data:
+  build: ./data
+  volumes:
+    - data
 
 redis:
   image: redis
