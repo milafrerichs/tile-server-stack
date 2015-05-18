@@ -6,6 +6,7 @@ app:
     - "8080"
   links:
     - redis:redis
+    - db:db
   volumes_from:
     - data
 
@@ -13,6 +14,12 @@ data:
   build: ./data
   volumes:
     - data
+
+dbdata:
+  image: kartoza/postgis
+  volumes:
+    - /var/lib/postgresql
+  command: true
 
 redis:
   image: redis
@@ -32,3 +39,10 @@ nginx:
     - 80:80
   links:
     - haproxy
+
+db:
+  image: kartoza/postgis
+  ports:
+    - 25432:5432
+  volumes_from:
+    - dbdata
