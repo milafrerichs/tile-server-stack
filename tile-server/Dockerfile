@@ -1,7 +1,7 @@
 FROM milafrerichs/docker-tilestache
 
 RUN pip install gunicorn jinja2 redis newrelic
-
+RUN pip install python-memcached
 RUN mkdir /nepal-tiles
 WORKDIR /nepal-tiles
 
