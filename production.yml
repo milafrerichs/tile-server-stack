@@ -6,6 +6,7 @@ app:
     - "8080"
   links:
     - redis:redis
+    - memcache:memcache
 
 redis:
   image: redis
@@ -25,3 +26,6 @@ nginx:
     - 80:80
   links:
     - haproxy
+
+memcache:
+  image: memcached
