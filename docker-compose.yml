@@ -14,12 +14,26 @@ data:
   build: ./data
   volumes:
     - data
+    - $HOME/nepal-tiles:/local_data
 
 dbdata:
   image: kartoza/postgis
   volumes:
     - /var/lib/postgresql
   command: true
+
+backupdb:
+  image: kartoza/postgis
+  command: true
+  links:
+    - db:db
+  volumes:
+    - $HOME/nepal-tiles:/backup
+  environment:
+    - PGHOST=db
+    - PGDATABASE=gis
+    - PGUSER=docker
+    - PGPASSWORD=docker
 
 redis:
   image: redis
