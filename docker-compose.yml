@@ -5,8 +5,8 @@ app:
   ports:
     - "8080"
   links:
-    - redis:redis
     - db:db
+    - memcache:memcache
   volumes_from:
     - data
 
@@ -60,3 +60,6 @@ db:
     - 25432:5432
   volumes_from:
     - dbdata
+
+memcache:
+  image: memcached
