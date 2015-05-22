@@ -6,6 +6,34 @@ app:
     - "8080"
   links:
     - redis:redis
+    - db:db
+  volumes_from:
+    - data
+
+data:
+  build: ./data
+  volumes:
+    - data
+    - $HOME/nepal-tiles:/local_data
+
+dbdata:
+  image: kartoza/postgis
+  volumes:
+    - /var/lib/postgresql
+  command: true
+
+backupdb:
+  image: kartoza/postgis
+  command: true
+  links:
+    - db:db
+  volumes:
+    - $HOME/nepal-tiles:/backup
+  environment:
+    - PGHOST=db
+    - PGDATABASE=gis
+    - PGUSER=docker
+    - PGPASSWORD=docker
 
 redis:
   image: redis
@@ -25,3 +53,10 @@ nginx:
     - 80:80
   links:
     - haproxy
+
+db:
+  image: kartoza/postgis
+  ports:
+    - 25432:5432
+  volumes_from:
+    - dbdata
