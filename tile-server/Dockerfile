@@ -2,14 +2,11 @@ FROM milafrerichs/docker-tilestache
 
 RUN pip install gunicorn jinja2 redis newrelic
 RUN pip install python-memcached
-RUN mkdir /nepal-tiles
-WORKDIR /nepal-tiles
+RUN mkdir /tile-server
+WORKDIR /tile-server
 
-ADD tilestache.cfg /nepal-tiles/tilestache.cfg
-ADD wsgi.py /nepal-tiles/wsgi.py
-
-RUN newrelic-admin generate-config 64444f7964adea4ef24e2e7edcdf43adc3621866 newrelic.ini
-ENV NEW_RELIC_CONFIG_FILE=newrelic.ini
+ADD tilestache.cfg /tile-server/tilestache.cfg
+ADD wsgi.py /tile-server/wsgi.py
 
 EXPOSE 8080
-CMD newrelic-admin run-program gunicorn wsgi:application --bind 0.0.0.0:8080
+CMD gunicorn wsgi:application --bind 0.0.0.0:8080
