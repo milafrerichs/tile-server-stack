@@ -1,12 +1,11 @@
 app:
   build: ./tile-server
   restart: always
-  command: newrelic-admin run-program gunicorn wsgi:application -b 0.0.0.0:8080 -w 3
+  command: gunicorn wsgi:application -b 0.0.0.0:8080 -w 3
   ports:
     - "8080"
   links:
     - db:db
-    - memcache:memcache
   volumes_from:
     - data
 
@@ -14,7 +13,7 @@ data:
   build: ./data
   volumes:
     - data
-    - $HOME/nepal-tiles:/local_data
+    - $HOME/tile-server:/local_data
 
 dbdata:
   image: kartoza/postgis
@@ -28,17 +27,12 @@ backupdb:
   links:
     - db:db
   volumes:
-    - $HOME/nepal-tiles:/backup
+    - $HOME/tile-server:/backup
   environment:
     - PGHOST=db
     - PGDATABASE=gis
     - PGUSER=docker
     - PGPASSWORD=docker
-
-redis:
-  image: redis
-  ports:
-    - "6379"
 
 haproxy:
   image: tutum/haproxy
@@ -60,6 +54,3 @@ db:
     - 25432:5432
   volumes_from:
     - dbdata
-
-memcache:
-  image: memcached
